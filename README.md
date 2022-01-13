@@ -1,1 +1,2 @@
-# chat-server
+# Python based one on one chat server
+
