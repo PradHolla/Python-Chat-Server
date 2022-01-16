@@ -1,17 +1,33 @@
 # Python Chat Server
+A simple, Python based, one to one chat application built using Flask.
+
 
 ## Setup
+
+```bash
+git clone https://github.com/PradHolla/Python-Chat-Server.git
+```
+
+```bash
+cd Python-Chat-Server
+```
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Server
+## Running the Chat Server
 
 ```bash
 python main.py
 ```
 
-## Clearing Message History
+## Running the Application
+Enter your IP address and port number `5000` in the browser.
 
-To clear the message history simply delete the `messages.db` file.
+```bash
+Your IP Address:5000
+```
+Execute `ipconfig` to get your IP address.
+
+Your messages are stored in the `messages.db` file. Delete the file if you want erase message history.
