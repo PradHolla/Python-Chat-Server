@@ -5,13 +5,11 @@ from app.database import DataBase
 import config
 
 # SETUP
-app = create_app()
-socketio = SocketIO(app)  # used for user communication
+app = create_app() # From app/init.py
+socketio = SocketIO(app)  # For user communication
 
 
 # COMMUNICATION FUNCTIONS
-
-
 @socketio.on('event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     """
@@ -29,5 +27,5 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     socketio.emit('message response', json)
 
 
-if __name__ == "__main__":  # start the web server
+if __name__ == "__main__":  # Starting the web server
     socketio.run(app, debug=True, host=str(config.Config.SERVER))
