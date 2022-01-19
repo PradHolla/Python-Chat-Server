@@ -26,7 +26,7 @@ python main.py
 Enter your IP address and port number `5000` in the browser.
 
 ```bash
-Your IP Address:5000
+127.0.0.1:5000
 ```
 Execute `ipconfig` to get your IP address.
 
