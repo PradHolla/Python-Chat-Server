@@ -29,7 +29,7 @@ To run the application, enter:
 127.0.0.1:5000
 ```
 This project can also be run on a LAN. To do so, change SERVER parameter in `.env` file from 127.0.0.1 to `0.0.0.0`.
-Execute `ipconfig` to get your IP address. Now enter your IP Address:5000 to run the application.
+Execute `ipconfig` in your terminal to get your IP address. Enter your IP Address:5000 to run the application across your LAN.
 
 ## Message History
 The history page specifically contains the messages of a particular user who is logged in, unlike the homepage where all the chats are displayed.
