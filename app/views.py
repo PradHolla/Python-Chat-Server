@@ -14,14 +14,14 @@ view = Blueprint("views", __name__)
 
 # GLOBAL CONSTANTS
 NAME_KEY = 'name'
-MSG_LIMIT = 20
+MSG_LIMIT = 40
 
 def encrypt(key, msg):
     enc = []
     for i, c in enumerate(msg):
         key_c = ord(key[i % len(key)])
         msg_c = ord(c)
-        enc.append(chr((msg_c + key_c) % 127))
+        enc.append(chr((msg_c + key_c) % 177))
     return ''.join(enc)
 
 def decrypt(key, enc):
@@ -29,7 +29,7 @@ def decrypt(key, enc):
     for i, c in enumerate(enc):
         key_c = ord(key[i % len(key)])
         enc_c = ord(c)
-        msg.append(chr((enc_c - key_c) % 127))
+        msg.append(chr((enc_c - key_c) % 177))
     return ''.join(msg)
 
 # VIEWS

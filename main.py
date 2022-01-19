@@ -14,7 +14,7 @@ def encrypt(key, msg):
     for i, c in enumerate(msg):
         key_c = ord(key[i % len(key)])
         msg_c = ord(c)
-        enc.append(chr((msg_c + key_c) % 127))
+        enc.append(chr((msg_c + key_c) % 177))
     return ''.join(enc)
 
 
