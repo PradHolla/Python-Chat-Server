@@ -16,6 +16,14 @@ view = Blueprint("views", __name__)
 NAME_KEY = 'name'
 MSG_LIMIT = 20
 
+def encrypt(key, msg):
+    enc = []
+    for i, c in enumerate(msg):
+        key_c = ord(key[i % len(key)])
+        msg_c = ord(c)
+        enc.append(chr((msg_c + key_c) % 127))
+    return ''.join(enc)
+
 def decrypt(key, enc):
     msg = []
     for i, c in enumerate(enc):
@@ -87,6 +95,7 @@ def get_name():
     :return: a json object storing name of logged in user
     """
     data = {"name": session[NAME_KEY]} if NAME_KEY in session else {"name": ""}
+    # print("HIII", data)
 
     return jsonify(data)
 
@@ -110,7 +119,8 @@ def get_history(name):
     :return: all messages by name of user
     """
     db = DataBase()
-    msgs = db.get_messages_by_name(name)
+    n_name = encrypt(SECRET_KEY, name)
+    msgs = db.get_messages_by_name(n_name)
     return remove_seconds_from_messages(msgs)
 
 
@@ -125,8 +135,10 @@ def remove_seconds_from_messages(msgs):
     for msg in msgs:
         message = msg
         message["time"] = remove_seconds(message["time"])
+        message['name'] = decrypt(SECRET_KEY, message['name'])
         message['message'] = decrypt(SECRET_KEY, message['message'])
         messages.append(message)
+        # print('HIIII', encrypt(SECRET_KEY,session[NAME_KEY]))
 
     return messages
 
