@@ -1,6 +1,13 @@
 from flask import Blueprint
 from flask import Flask, render_template, url_for, redirect, request, session, jsonify, flash, Blueprint
 from .database import DataBase
+from dotenv import load_dotenv
+from pathlib import Path
+import os
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 view = Blueprint("views", __name__)
 
@@ -8,6 +15,14 @@ view = Blueprint("views", __name__)
 # GLOBAL CONSTANTS
 NAME_KEY = 'name'
 MSG_LIMIT = 20
+
+def decrypt(key, enc):
+    msg = []
+    for i, c in enumerate(enc):
+        key_c = ord(key[i % len(key)])
+        enc_c = ord(c)
+        msg.append(chr((enc_c - key_c) % 127))
+    return ''.join(msg)
 
 # VIEWS
 
@@ -110,6 +125,7 @@ def remove_seconds_from_messages(msgs):
     for msg in msgs:
         message = msg
         message["time"] = remove_seconds(message["time"])
+        message['message'] = decrypt(SECRET_KEY, message['message'])
         messages.append(message)
 
     return messages

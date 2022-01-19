@@ -8,6 +8,15 @@ import config
 app = create_app() # From app/init.py
 socketio = SocketIO(app)  # For user communication
 
+# MESSAGE ENCRYPTION AND DECRYPTION
+def encrypt(key, msg):
+    enc = []
+    for i, c in enumerate(msg):
+        key_c = ord(key[i % len(key)])
+        msg_c = ord(c)
+        enc.append(chr((msg_c + key_c) % 127))
+    return ''.join(enc)
+
 
 # COMMUNICATION FUNCTIONS
 @socketio.on('event')
@@ -22,7 +31,8 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     data = dict(json)
     if "name" in data:
         db = DataBase()
-        db.save_message(data["name"], data["message"])
+        # data['name'] = encrypt(config.Config.SECRET_KEY, data['name'])
+        db.save_message(data["name"], encrypt(config.Config.SECRET_KEY, data["message"]))
 
     socketio.emit('message response', json)
 
