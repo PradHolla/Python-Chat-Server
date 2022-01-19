@@ -31,8 +31,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     data = dict(json)
     if "name" in data:
         db = DataBase()
-        # data['name'] = encrypt(config.Config.SECRET_KEY, data['name'])
-        db.save_message(data["name"], encrypt(config.Config.SECRET_KEY, data["message"]))
+        db.save_message(encrypt(config.Config.SECRET_KEY, data['name']), encrypt(config.Config.SECRET_KEY, data["message"]))
 
     socketio.emit('message response', json)
 
