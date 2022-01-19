@@ -23,11 +23,15 @@ python main.py
 ```
 
 ## Running the Application
-Enter your IP address and port number `5000` in the browser.
+To run the application, enter:
 
 ```bash
 127.0.0.1:5000
 ```
-Execute `ipconfig` to get your IP address.
+This project can also be run on a LAN. To do so, change SERVER parameter in `.env` file from 127.0.0.1 to `0.0.0.0`.
+Execute `ipconfig` in your terminal to get your IP address. Enter your IP Address:5000 to run the application across your LAN.
 
-Your messages are stored in the `messages.db` file. Delete the file if you want erase message history.
+## Message History
+The history page specifically contains the messages of a particular user who is logged in, unlike the homepage where all the chats are displayed.
+
+Your messages are stored in the `messages.db` file. Delete the file if you want to erase chats.
